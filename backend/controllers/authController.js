@@ -91,6 +91,12 @@ exports.login = async (req, res) => {
 
     // Check password
     const isPasswordCorrect = await user.comparePassword(password);
+    
+    console.log(`Login attempt for ${username}:`, {
+      providedPassword: password,
+      isPasswordCorrect,
+      userId: user.id
+    });
 
     if (!isPasswordCorrect) {
       return res.status(401).json({

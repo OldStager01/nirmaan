@@ -39,6 +39,27 @@ An integrated platform featuring:
 
 ---
 
+### Admin Dashboard
+![Admin Dashboard Overview](./assets/admin-dash.png)
+
+*Comprehensive admin dashboard with real-time statistics, charts, and system-wide analytics*
+
+---
+
+### Admin Statistics
+![Admin Statistics Panel](./assets/admin-stats.png)
+
+*Detailed statistics view showing all farmers, sensor readings, and maturity distribution across the entire system*
+
+---
+
+### User/Farmer Dashboard
+![Farmer Dashboard](./assets/user-dash.png)
+
+*Farmer-specific dashboard displaying their field data, sensor readings, and personalized maturity predictions*
+
+---
+
 ## 🏗️ Architecture
 
 ```

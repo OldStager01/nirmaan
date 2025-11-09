@@ -1,6 +1,4 @@
-const SensorData = require('../models/SensorData');
-const Field = require('../models/Field');
-const User = require('../models/User');
+const { SensorData, Field, User } = require('../models');
 const { Op } = require('sequelize');
 const sequelize = require('../config/database');
 
@@ -161,7 +159,7 @@ exports.getSucroseTrend = async (req, res) => {
       where,
       attributes: [
         [sequelize.fn('DATE', sequelize.col('createdAt')), 'date'],
-        [sequelize.fn('AVG', sequelize.col('sucroseLevel')), 'avgSucrose'],
+        [sequelize.fn('AVG', sequelize.col('sucrose_level')), 'avgSucrose'],
         [sequelize.fn('COUNT', sequelize.col('id')), 'count']
       ],
       group: [sequelize.fn('DATE', sequelize.col('createdAt'))],
