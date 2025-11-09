@@ -50,10 +50,15 @@ const DashboardPage = () => {
         dashboardAPI.getAlerts(),
       ]);
 
-      setStats(statsRes.data);
-      setMaturityData(maturityRes.data.distribution || []);
-      setSucroseTrend(trendRes.data.trend || []);
-      setAlerts(alertsRes.data.alerts || []);
+      console.log('Stats Response:', statsRes.data);
+      console.log('Maturity Response:', maturityRes.data);
+      console.log('Trend Response:', trendRes.data);
+      console.log('Alerts Response:', alertsRes.data);
+
+      setStats(statsRes.data.data?.stats || statsRes.data);
+      setMaturityData(maturityRes.data.data?.chartData || maturityRes.data.distribution || []);
+      setSucroseTrend(trendRes.data.data?.chartData || trendRes.data.trend || []);
+      setAlerts(alertsRes.data.data?.alerts || alertsRes.data.alerts || []);
     } catch (error) {
       console.error('Error fetching dashboard data:', error);
     } finally {
@@ -96,7 +101,7 @@ const DashboardPage = () => {
           </div>
           <div className="stat-content">
             <h3>Today's Readings</h3>
-            <p className="stat-value">{stats?.todayReadings || 0}</p>
+            <p className="stat-value">{stats?.readingsToday || 0}</p>
             <span className="stat-label">Collected today</span>
           </div>
         </div>
@@ -107,7 +112,7 @@ const DashboardPage = () => {
           </div>
           <div className="stat-content">
             <h3>Avg. Sucrose</h3>
-            <p className="stat-value">{stats?.averageSucrose?.toFixed(1) || 0}%</p>
+            <p className="stat-value">{stats?.averageSucroseLevel ? parseFloat(stats.averageSucroseLevel).toFixed(1) : 0}%</p>
             <span className="stat-label">Across all fields</span>
           </div>
         </div>

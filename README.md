@@ -30,6 +30,15 @@ An integrated platform featuring:
 
 ---
 
+## 📸 Application Screenshots
+
+### Login Page
+![NIRMAAN Login Screen](./assets/home-page.png)
+
+*Clean, government-themed login interface with demo credentials for easy testing*
+
+---
+
 ## 🏗️ Architecture
 
 ```

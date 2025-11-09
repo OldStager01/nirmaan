@@ -13,7 +13,7 @@ import DashboardPage from './pages/DashboardPage';
 // import SensorDataPage from './pages/SensorDataPage';
 // import SubmitDataPage from './pages/SubmitDataPage';
 // import FieldsPage from './pages/FieldsPage';
-// import UsersPage from './pages/UsersPage';
+import UsersPage from './pages/UsersPage';
 
 function AppContent() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -88,14 +88,14 @@ function AppContent() {
           /> */}
 
           {/* Admin Only Routes */}
-          {/* <Route
+          <Route
             path="/users"
             element={
               <PrivateRoute adminOnly>
                 <UsersPage />
               </PrivateRoute>
             }
-          /> */}
+          />
 
           {/* Default Redirect */}
           <Route path="/" element={<Navigate to="/dashboard" replace />} />

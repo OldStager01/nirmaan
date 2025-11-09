@@ -156,21 +156,23 @@ exports.getSucroseTrend = async (req, res) => {
     where.createdAt = { [Op.gte]: startDate };
     where.sucroseLevel = { [Op.not]: null };
 
+    // Use SUBSTR for SQLite compatibility instead of DATE()
     const trendData = await SensorData.findAll({
       where,
       attributes: [
-        [sequelize.fn('DATE', sequelize.col('created_at')), 'date'],
-        [sequelize.fn('AVG', sequelize.col('sucrose_level')), 'avgSucrose'],
+        [sequelize.fn('DATE', sequelize.col('createdAt')), 'date'],
+        [sequelize.fn('AVG', sequelize.col('sucroseLevel')), 'avgSucrose'],
         [sequelize.fn('COUNT', sequelize.col('id')), 'count']
       ],
-      group: [sequelize.fn('DATE', sequelize.col('created_at'))],
-      order: [[sequelize.fn('DATE', sequelize.col('created_at')), 'ASC']]
+      group: [sequelize.fn('DATE', sequelize.col('createdAt'))],
+      order: [[sequelize.fn('DATE', sequelize.col('createdAt')), 'ASC']],
+      raw: true
     });
 
     const chartData = trendData.map(item => ({
-      date: item.dataValues.date,
-      avgSucrose: parseFloat(item.dataValues.avgSucrose).toFixed(2),
-      count: parseInt(item.dataValues.count)
+      date: item.date,
+      avgSucrose: parseFloat(item.avgSucrose || 0).toFixed(2),
+      count: parseInt(item.count || 0)
     }));
 
     res.json({
@@ -178,6 +180,7 @@ exports.getSucroseTrend = async (req, res) => {
       data: { chartData }
     });
   } catch (error) {
+    console.error('Sucrose trend error:', error);
     res.status(500).json({
       status: 'error',
       message: error.message
@@ -243,7 +246,8 @@ exports.getAlerts = async (req, res) => {
         {
           model: Field,
           as: 'field',
-          attributes: ['fieldName', 'location']
+          attributes: ['fieldName', 'location'],
+          required: false
         }
       ],
       order: [['createdAt', 'DESC']],
@@ -311,6 +315,7 @@ exports.getAlerts = async (req, res) => {
       }
     });
   } catch (error) {
+    console.error('Alerts error:', error);
     res.status(500).json({
       status: 'error',
       message: error.message
