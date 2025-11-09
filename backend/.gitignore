@@ -1,0 +1,21 @@
+node_modules/
+.env
+*.log
+.DS_Store
+uploads/
+dist/
+coverage/
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# SQLite databases
+*.sqlite
+*.sqlite3
+database.sqlite
+
+# Markdown files except README
+*.md
+!README.md
